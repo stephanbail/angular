@@ -12,6 +12,8 @@ export class HeaderComponent implements OnInit {
   @Output() articles: NewsAPI.Article[];
   @Output() sources: NewsAPI.Source[];
 
+  searchText: "";
+
   @Output() selectedSource: SelectedSource;
 
   constructor(private newsApiService : NewsApiService) { }
@@ -26,6 +28,11 @@ export class HeaderComponent implements OnInit {
     this.selectedSource = new SelectedSource();
   }
 
+  onSearchInput()
+  {
+    this.getNewsArticles();
+  }
+
   getSources() {
     this.newsApiService.getSources().subscribe
     (
@@ -37,7 +44,12 @@ export class HeaderComponent implements OnInit {
 
 
     getNewsArticles() {
-     this.newsApiService.getNews({ page: 1, pageSize: 100, sortBy: 'popularity', q:"", sources:[this.selectedSource.id]}).subscribe(
+      if (this.searchText.length == 0)
+      {
+        this.searchText = "";
+      }
+
+     this.newsApiService.getNews({ page: 1, pageSize: 100, sortBy: 'popularity', q:this.searchText, sources:[this.selectedSource.id]}).subscribe(
        (response: NewsAPI.NewsResult) => {
          this.articles = response.articles;
          console.log(response.articles.length);

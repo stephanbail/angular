@@ -25,7 +25,7 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control mr-sm-2" type="search" name="searchBox" placeholder="Search" aria-label="Search" (keyup)="onSearchInput()" [(ngModel)]="searchText">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
@@ -33,7 +33,7 @@
 
 <div *ngFor="let article of articles" class="float-left">
   <div>
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 18rem; height: 40rem;">
           <img class="card-img-top" src="{{ article.urlToImage }}" alt="{{ article.author }}">
           <div class="card-body">
             <h6 class="card-title">{{ article.author }}</h6>
