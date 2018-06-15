@@ -1,46 +1,60 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">News</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="#">News Explorer</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
           {{selectedSource.name}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a *ngFor="let newsSource of sources" class="dropdown-item" href="#" (click)="onSelectNewsSource(newsSource)">{{ newsSource.name }}</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+      <li>
+        <button type="button" style="margin-left: 10%" class="btn btn-outline-primary" (click)="saveFeed()" [disabled]="!isValidForFilterPersistence">Save Feed</button>
       </li>
+
+
+      <li *ngFor="let newsFeed of newsFeeds" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          {{ newsFeed.name }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" (click)="onSelectPersistedFeed(newsFeed)">Display {{ newsFeed.name }}</a>
+          <a class="dropdown-item" href="#" (click)="onDeletePersistedFeed(newsFeed)">Delete {{ newsFeed.name }}</a>
+        </div>
+      </li>
+
+
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" name="searchBox" placeholder="Search" aria-label="Search" (keyup)="onSearchInput()" [(ngModel)]="searchText">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" name="searchBox" placeholder="Search" aria-label="Search" (keyup)="onSearchInput()"
+        [(ngModel)]="searchText">
     </form>
+    <button type="button" class="btn btn-outline-info" style="margin-left: 2%" onclick="window.location.href='https://github.com/stephanbail/angular/tree/master/NewsExplorer'">Check out Github-Project</button>
   </div>
 </nav>
 
-<div *ngFor="let article of articles" class="float-left">
+<div *ngFor="let article of articles" class="float-left" style="margin: 1%">
   <div>
-      <div class="card" style="width: 18rem; height: 40rem;">
-          <img class="card-img-top" src="{{ article.urlToImage }}" alt="{{ article.author }}">
-          <div class="card-body">
-            <h6 class="card-title">{{ article.author }}</h6>
-            <h5 class="card-title">{{ article.title }}</h5>
-            <p class="card-text">{{ article.description }}</p>
-            <a href="{{ article.url }}" target="_blank" class="btn btn-primary">More...</a>
-          </div>
-        </div>
+    <div class="card" style="width: 18rem; height:35rem">
+      <a href="{{ article.url }}" target="_blank">
+        <img class="card-img-top" src="{{ article.urlToImage }}" alt="{{ article.author }}">
+      </a>
+      <div class="card-body">
+        <h6 class="card-title">{{ article.author }}</h6>
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="card-text">{{ article.description }}</p>
+        <a href="{{ article.url }}" target="_blank" class="btn btn-primary">More...</a>
+      </div>
+    </div>
   </div>
 </div>

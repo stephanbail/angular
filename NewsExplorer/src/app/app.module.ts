@@ -5,6 +5,7 @@ import { HeaderComponent } from './header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsApiService } from './services/news-api.service';
 import { FormsModule } from '@angular/forms';
+import { FeedStoreService } from './services/feed-store.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [NewsApiService],
+  providers: [NewsApiService, FeedStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
